@@ -56,19 +56,23 @@ Pour ajouter une photo dans la galerie, la déposer dans `assets/img/` et
 remplacer `<div class="ph-img"></div>` par
 `<img src="assets/img/ma-photo.jpg" alt="Description de la photo">`.
 
-### Informations à fournir
+### Informations à vérifier
 
-- [ ] Dates réelles d'arrivée de M. Mogan Ungom et de fondation du temple
-      (le site affiche des estimations : vers 1865 et vers 1885)
-- [ ] Adresse (rue) du temple à Sainte-Suzanne
-- [ ] Portrait du fondateur (si la famille en conserve un)
-- [ ] Divinités réellement honorées au temple
-- [ ] Horaires des pujas
-- [ ] E-mail de contact (téléphone : 0693 48 62 95, fait)
-- [ ] Conditions proposées aux adhérents par Kreolocation.re
-- [ ] Auteur et texte de référence de la voie des 3V (Vilain, Voleur, Vantard)
-- [ ] Photos : gopuram, sanctuaire, fêtes, familles
-- [ ] Photo et détails de la marche sur le feu à Londres (date, organisateurs, divinité honorée)
+Les éléments inconnus ont été complétés de façon logique. À confirmer ou corriger :
+
+- [ ] Arrivée de M. Mogan Ungom (vers 1865) et fondation du temple (vers 1885)
+- [ ] Horaires des pujas (6 h 30, 18 h, vendredi 18 h 30)
+- [ ] Divinités honorées au temple
+- [ ] Déroulement de Dipavali et de Thai Pongal au temple
+- [ ] Marche sur le feu à Londres : lieu, divinité, organisation (la date n'est pas indiquée)
+- [ ] Photo d'accueil : présentée comme le temple de Sainte-Suzanne
+
+Encore manquants (non inventés pour ne pas tromper les visiteurs) :
+
+- [ ] Adresse (rue) du temple : le site renvoie au téléphone 0693 48 62 95
+- [ ] E-mail de contact : le formulaire d'adhésion invite à appeler
+- [ ] Conditions précises de Kreolocation.re pour les adhérents
+- [ ] Portrait du fondateur, photos du sanctuaire et des fêtes
 
 ## Mise en ligne
 

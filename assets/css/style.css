@@ -566,6 +566,7 @@ body::before {
   border: 2px dashed rgba(107, 20, 33, .2); color: var(--ink-soft);
 }
 .map-placeholder svg { width: 180px; margin-bottom: 10px; }
+.map-placeholder { gap: 14px; }
 .map-placeholder p { margin: 0; }
 @media (max-width: 760px) { .contact { grid-template-columns: 1fr; } }
 
