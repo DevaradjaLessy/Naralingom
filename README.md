@@ -58,8 +58,9 @@ remplacer `<div class="ph-img"></div>` par
 
 ### Informations à fournir
 
-- [ ] Date et lieu d'arrivée de M. Mogan Ungom, sa région d'origine en Inde
-- [ ] Année de fondation du temple et adresse (rue) à Sainte-Suzanne
+- [ ] Dates réelles d'arrivée de M. Mogan Ungom et de fondation du temple
+      (le site affiche des estimations : vers 1865 et vers 1885)
+- [ ] Adresse (rue) du temple à Sainte-Suzanne
 - [ ] Portrait du fondateur (si la famille en conserve un)
 - [ ] Divinités réellement honorées au temple
 - [ ] Horaires des pujas
