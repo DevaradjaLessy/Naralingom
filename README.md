@@ -3,21 +3,42 @@
 Site du temple tamoul **Sinapouralé Naral-UnGom** à La Réunion, fondé par
 **M. Mogan Ungom**, engagé indien, comme lieu de rassemblement et de culte.
 
-Site statique (HTML, CSS, JavaScript), sans outil de build : il suffit d'ouvrir
-`index.html` dans un navigateur.
+Site statique (HTML, CSS, JavaScript) : il suffit d'ouvrir `index.html` dans un
+navigateur. Seules les pages d'actualités sont générées, par un petit script
+Python sans dépendance (voir « Actualités »).
 
 ## Structure
 
 ```
-index.html            Page unique, toutes les sections
-assets/css/style.css  Mise en forme (palette bordeaux, safran, curcuma)
-assets/js/main.js     Menu mobile, agenda, examen des 3V, formulaire d'adhésion
-assets/img/           Icône du site (lampe) et futures photos
+index.html              Page d'accueil, toutes les sections
+actualites/             Pages générées : liste des actualités + une page par article
+content/actualites/     Textes des articles (à modifier ici, pas dans actualites/)
+tools/build.py          Générateur des pages d'actualités
+assets/css/style.css    Mise en forme (palette bordeaux, safran, curcuma)
+assets/js/main.js       Menu mobile, agenda, examen des 3V, adhésion, filtres
+assets/img/             Icône du site, photos (assets/img/actus/ pour les articles)
 ```
 
-Sections : Accueil · Le temple · Fondateur & repères historiques · Divinités ·
-Calendrier des fêtes · Visite (horaires, bons gestes) · La voie des 3V ·
-Espace adhérents & partenaire Kreolocation.re · Galerie · Contact.
+Sections de l'accueil : Actualités (article à la une + derniers articles) ·
+Le temple · Fondateur & repères historiques · Divinités · Calendrier des fêtes ·
+Visite (horaires, bons gestes) · La voie des 3V · Espace adhérents & partenaire
+Kreolocation.re · Galerie · Contact.
+
+## Actualités
+
+Chaque article est un fichier de `content/actualites/` (format décrit dans
+`content/actualites/README.md`). Après tout ajout ou modification :
+
+```
+python3 tools/build.py
+```
+
+Le script régénère `actualites/index.html`, les pages d'articles et le bloc
+« Actualités » de l'accueil. L'article marqué `une: oui` est placé en tête.
+
+Photo de couverture d'un article : la déposer dans `assets/img/actus/`, puis
+renseigner `image: assets/img/actus/nom-de-la-photo.jpg` dans l'en-tête de
+l'article. Sans photo, une couverture typographique en tamoul est affichée.
 
 ## Compléter le contenu
 
@@ -46,6 +67,7 @@ remplacer `<div class="ph-img"></div>` par
 - [ ] Conditions proposées aux adhérents par Kreolocation.re
 - [ ] Auteur et texte de référence de la voie des 3V (Vilain, Voleur, Vantard)
 - [ ] Photos : gopuram, sanctuaire, fêtes, familles
+- [ ] Photo et détails de la marche sur le feu à Londres (date, organisateurs, divinité honorée)
 
 ## Mise en ligne
 

@@ -70,10 +70,10 @@ if ("IntersectionObserver" in window) {
     .filter((ev) => !Number.isNaN(ev.when.getTime()) && ev.when >= today)
     .sort((a, b) => a.when - b.when);
 
-  if (!upcoming.length) return;
+  const list = document.getElementById("agenda-list");
+  if (!list || !upcoming.length) return;
 
   const fmt = new Intl.DateTimeFormat("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
-  const list = document.getElementById("agenda-list");
 
   upcoming.forEach((ev) => {
     const li = document.createElement("li");
@@ -96,6 +96,7 @@ if ("IntersectionObserver" in window) {
 (function threeV() {
   const form = document.getElementById("v-check");
   const out = document.getElementById("v-result");
+  if (!form) return;
   const messages = [
     "Chaque jour est une nouvelle chance. Allumez une lampe et recommencez demain.",
     "Un premier pas. Demain, gardez une porte de plus.",
@@ -113,6 +114,7 @@ if ("IntersectionObserver" in window) {
 (function joinForm() {
   const form = document.getElementById("join-form");
   const status = document.getElementById("join-status");
+  if (!form) return;
 
   function setStatus(text, kind) {
     status.textContent = text;
@@ -157,5 +159,42 @@ if ("IntersectionObserver" in window) {
   });
 })();
 
+/* ---------- Filtres de la page Actualités ---------- */
+(function newsFilters() {
+  const buttons = [...document.querySelectorAll(".filter[data-filter]")];
+  if (!buttons.length) return;
+  const items = [...document.querySelectorAll(".news-list [data-cat]")];
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const cat = btn.dataset.filter;
+      buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      items.forEach((item) => {
+        item.hidden = cat !== "toutes" && item.dataset.cat !== cat;
+      });
+    });
+  });
+})();
+
+/* ---------- Copier le lien d'un article ---------- */
+document.querySelectorAll("[data-copy-link]").forEach((btn) => {
+  const label = btn.textContent;
+  btn.addEventListener("click", () => {
+    const done = (text) => {
+      btn.textContent = text;
+      setTimeout(() => { btn.textContent = label; }, 2500);
+    };
+    if (!navigator.clipboard) {
+      done("Copie impossible, utilisez la barre d'adresse");
+      return;
+    }
+    navigator.clipboard
+      .writeText(window.location.href)
+      .then(() => done("Lien copié"))
+      .catch(() => done("Copie impossible, utilisez la barre d'adresse"));
+  });
+});
+
 /* ---------- Année du pied de page ---------- */
-document.getElementById("year").textContent = new Date().getFullYear();
+const year = document.getElementById("year");
+if (year) year.textContent = new Date().getFullYear();
