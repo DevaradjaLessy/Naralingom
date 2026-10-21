@@ -71,5 +71,8 @@ remplacer `<div class="ph-img"></div>` par
 
 ## Mise en ligne
 
-Le site peut être publié gratuitement avec **GitHub Pages** :
-Settings → Pages → Source « Deploy from a branch » → branche principale, dossier `/ (root)`.
+Le site est publié avec **GitHub Pages** depuis la branche `master` (dossier racine) :
+https://devaradjalessy.github.io/Naralingom/
+
+Chaque envoi (push) sur `master` met le site à jour en une minute environ.
+Le fichier `.nojekyll` demande à GitHub de servir les fichiers tels quels.
