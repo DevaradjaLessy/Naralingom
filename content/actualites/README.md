@@ -30,7 +30,8 @@ image:
 - `une: oui` place l'article en tête (un seul article à la fois).
 - `image` : chemin d'une photo de couverture depuis la racine du site
   (ex. `assets/img/actus/ma-photo.jpg`). Vide : couverture typographique.
-- `credit` (facultatif) : légende ou crédit de la photo.
+- `credit` (facultatif) : légende ou crédit de la photo, affiché sous la couverture.
+- `alt` (facultatif) : description de la photo pour les lecteurs d'écran (par défaut, la légende).
 
 ## Corps de l'article (HTML)
 

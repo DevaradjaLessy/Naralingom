@@ -561,7 +561,7 @@ body::before {
     radial-gradient(120% 90% at 50% 120%, rgba(246, 196, 83, .45), transparent 60%),
     linear-gradient(150deg, var(--c1), var(--c2));
 }
-.cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
 .cover-ta {
   font-family: var(--font-tamil-display); font-weight: 600; line-height: 1.25;
   font-size: clamp(1.6rem, 5vw, 2.6rem);
@@ -666,7 +666,9 @@ body::before {
 .article-cover .cover { border-radius: calc(var(--radius) + 4px); aspect-ratio: 21 / 9; }
 .article-cover .cover-ta { font-size: clamp(2.6rem, 9vw, 5.5rem); }
 .article-cover figcaption { font-size: .86rem; color: var(--ink-soft); margin-top: 8px; }
-@media (max-width: 600px) { .article-cover .cover { aspect-ratio: 4 / 3; } }
+.article-cover .cover:has(img) { aspect-ratio: 16 / 9; }
+.article-cover .cover img { object-position: center 55%; }
+@media (max-width: 600px) { .article-cover .cover, .article-cover .cover:has(img) { aspect-ratio: 4 / 3; } }
 
 .prose { max-width: 68ch; margin: 0 auto; padding-block: 28px clamp(48px, 7vw, 80px); font-size: 1.1rem; }
 .prose .chapo {
