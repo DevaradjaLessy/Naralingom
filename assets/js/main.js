@@ -58,26 +58,6 @@ if ("IntersectionObserver" in window) {
     { rootMargin: "-45% 0px -50% 0px" }
   );
   sections.forEach((s) => spy.observe(s));
-
-  /* Apparition douce des blocs au défilement */
-  const revealables = document.querySelectorAll(
-    ".fact, .pillar, .deity, .festival, .v-card, .timeline li, .ph"
-  );
-  const reveal = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          obs.unobserve(entry.target);
-        }
-      });
-    },
-    { rootMargin: "0px 0px -8% 0px" }
-  );
-  revealables.forEach((el) => {
-    el.classList.add("reveal");
-    reveal.observe(el);
-  });
 }
 
 /* ---------- Agenda du temple ---------- */
