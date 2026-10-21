@@ -138,7 +138,7 @@ if ("IntersectionObserver" in window) {
     }
 
     if (!TEMPLE.email) {
-      setStatus("Les demandes en ligne ouvriront bientôt. En attendant, adressez-vous au temple.", "error");
+      setStatus("Les demandes en ligne ouvriront bientôt. En attendant, appelez le temple au 0693 48 62 95.", "error");
       return;
     }
 

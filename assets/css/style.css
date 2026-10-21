@@ -764,6 +764,7 @@ body::before {
 .footer-inner { display: grid; grid-template-columns: 1.4fr 1fr auto; gap: 32px; align-items: start; }
 .footer-brand { font-family: var(--font-title); font-size: 1.6rem; color: var(--gold-light); margin-bottom: .3em; }
 .footer-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.site-footer a { color: var(--gold-light); }
 .footer-links a { color: #f5e9d6; text-decoration: none; }
 .footer-links a:hover { color: var(--gold-light); text-decoration: underline; }
 .footer-om { font-size: 1.4rem; color: var(--gold-light); margin: 0; }
