@@ -32,6 +32,8 @@ image:
   (ex. `assets/img/actus/ma-photo.jpg`). Vide : couverture typographique.
 - `credit` (facultatif) : légende ou crédit de la photo, affiché sous la couverture.
 - `alt` (facultatif) : description de la photo pour les lecteurs d'écran (par défaut, la légende).
+- `cadrage` (facultatif) : partie de la photo à garder visible quand elle est recadrée,
+  au format CSS `object-position` (ex. `center 20%` pour privilégier le haut).
 
 ## Corps de l'article (HTML)
 

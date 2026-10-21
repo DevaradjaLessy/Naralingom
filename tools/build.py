@@ -83,6 +83,7 @@ def parse_article(path):
         "image": image,
         "credit": meta.get("credit", ""),
         "alt": meta.get("alt") or meta.get("credit", ""),
+        "cadrage": meta.get("cadrage", ""),
         "body": body,
         "minutes": max(1, round(words / 200)),
     }
@@ -115,8 +116,10 @@ def meta_line(a):
 def cover(a, root, big=False):
     """Photo si elle existe, sinon couverture typographique en tamoul."""
     if a["image"]:
+        focus = f' style="object-position: {esc(a["cadrage"])}"' if a["cadrage"] else ""
         return (f'<div class="cover cover--{a["cat"]}">'
-                f'<img src="{root}{esc(a["image"])}" alt="{esc(a["alt"])}" loading="{"eager" if big else "lazy"}"></div>')
+                f'<img src="{root}{esc(a["image"])}" alt="{esc(a["alt"])}"{focus} '
+                f'loading="{"eager" if big else "lazy"}"></div>')
     translit = f'<span class="cover-tr">{esc(a["translit"])}</span>' if a["translit"] else ""
     return (f'<div class="cover cover--{a["cat"]}" aria-hidden="true">'
             f'<span class="cover-ta" lang="ta">{esc(a["tamoul"])}</span>{translit}</div>')
