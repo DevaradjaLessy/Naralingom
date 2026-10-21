@@ -12,6 +12,7 @@ L'en-tête et le pied de page des pages générées sont repris de index.html :
 modifier le menu dans index.html suffit pour mettre tout le site à jour.
 """
 
+import hashlib
 import html
 import json
 import re
@@ -38,6 +39,15 @@ CATEGORIES = {
 
 MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet",
         "août", "septembre", "octobre", "novembre", "décembre"]
+
+def asset_version(rel):
+    """Empreinte courte d'un fichier : change à chaque modification, ce qui force
+    les navigateurs à recharger la feuille de style ou le script."""
+    return hashlib.md5((ROOT / rel).read_bytes()).hexdigest()[:8]
+
+
+CSS_V = asset_version("assets/css/style.css")
+JS_V = asset_version("assets/js/main.js")
 
 FONTS = ("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500"
          "&family=Nunito+Sans:wght@400;600;700&family=Noto+Sans+Tamil:wght@500;700"
@@ -192,7 +202,7 @@ def page(title, description, body, header, footer, extra_head=""):
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="{FONTS}" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/style.css">{extra_head}
+  <link rel="stylesheet" href="../assets/css/style.css?v={CSS_V}">{extra_head}
 </head>
 <body>
   <a class="skip-link" href="#contenu">Aller au contenu</a>
@@ -205,7 +215,7 @@ def page(title, description, body, header, footer, extra_head=""):
 
   {footer}
 
-  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/main.js?v={JS_V}" defer></script>
 </body>
 </html>
 '''
@@ -342,6 +352,8 @@ def build_home_block(articles):
         </div>'''
 
     source = INDEX.read_text(encoding="utf-8")
+    source = re.sub(r'href="assets/css/style\.css(\?v=\w+)?"', f'href="assets/css/style.css?v={CSS_V}"', source)
+    source = re.sub(r'src="assets/js/main\.js(\?v=\w+)?"', f'src="assets/js/main.js?v={JS_V}"', source)
     new, n = re.subn(r"(<!-- ACTUS:DEBUT -->\n).*?(<!-- ACTUS:FIN -->)",
                      lambda m: m.group(1) + block + "\n" + m.group(2), source, flags=re.S)
     if n != 1:

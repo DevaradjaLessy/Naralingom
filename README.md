@@ -35,6 +35,9 @@ python3 tools/build.py
 
 Le script régénère `actualites/index.html`, les pages d'articles et le bloc
 « Actualités » de l'accueil. L'article marqué `une: oui` est placé en tête.
+Il ajoute aussi un numéro de version (`?v=…`) aux liens vers `style.css` et
+`main.js` : après une modification du style ou du script, relancer le script
+pour que les navigateurs chargent la nouvelle version au lieu de l'ancienne.
 
 Photo de couverture d'un article : la déposer dans `assets/img/actus/`, puis
 renseigner `image: assets/img/actus/nom-de-la-photo.jpg` dans l'en-tête de
