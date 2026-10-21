@@ -189,6 +189,17 @@ body::before {
     repeat-x top center / 56px 46px;
 }
 
+/* La guirlande descend en se balançant à l'ouverture de la page */
+@media (prefers-reduced-motion: no-preference) {
+  .thoranam { transform-origin: top center; animation: thoranam-drop 1.3s cubic-bezier(.22, 1.2, .36, 1) .15s both; }
+}
+@keyframes thoranam-drop {
+  0% { transform: translateY(-100%) rotate(-1.5deg); opacity: 0; }
+  55% { transform: translateY(6%) rotate(.8deg); opacity: 1; }
+  80% { transform: translateY(-2%) rotate(-.3deg); }
+  100% { transform: none; opacity: 1; }
+}
+
 /* Kolam : rangée de points et de boucles tracés à la farine de riz */
 .kolam-divider {
   height: 28px;

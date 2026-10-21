@@ -54,7 +54,8 @@ Dans `assets/js/main.js`, l'objet `TEMPLE` en haut du fichier permet de régler 
 - `email` : l'adresse qui reçoit les demandes d'adhésion ;
 - `agenda` : les prochaines dates au temple, affichées automatiquement au-dessus
   du calendrier des fêtes (les dates passées disparaissent d'elles-mêmes).
-- `fleurs` : la pluie de fleurs (souci, jasmin, rose) à l'ouverture des pages ;
+- `fleurs` : l'accueil en fleurs. Sur l'accueil, voile du sanctuaire, Om d'or,
+  gerbe de pétales et d'étincelles ; sur les autres pages, pluie de fleurs seule ;
   `false` pour la désactiver. Elle ne s'affiche pas si le visiteur a demandé
   à réduire les animations.
 
