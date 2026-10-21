@@ -1,7 +1,7 @@
 # Temple Sinapouralé Naral-UnGom — site web
 
 Site du temple tamoul **Sinapouralé Naral-UnGom** à La Réunion, fondé par
-**M. Mogan Ungom**, engagé indien, comme lieu de rassemblement et de culte.
+**M. Mogan Ungom**, descendant des engagés indiens, comme lieu de rassemblement et de culte.
 
 Site statique (HTML, CSS, JavaScript) : il suffit d'ouvrir `index.html` dans un
 navigateur. Seules les pages d'actualités sont générées, par un petit script
@@ -60,7 +60,7 @@ remplacer `<div class="ph-img"></div>` par
 
 Les éléments inconnus ont été complétés de façon logique. À confirmer ou corriger :
 
-- [ ] Arrivée de M. Mogan Ungom (vers 1865) et fondation du temple (vers 1885)
+- [ ] Année exacte de fondation du temple (le site indique « années 2010 »)
 - [ ] Horaires des pujas (6 h 30, 18 h, vendredi 18 h 30)
 - [ ] Divinités honorées au temple
 - [ ] Déroulement de Dipavali et de Thai Pongal au temple
