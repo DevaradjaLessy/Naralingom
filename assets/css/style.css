@@ -762,6 +762,12 @@ body::before {
 .related { background: var(--sand); padding-block: clamp(48px, 7vw, 80px); }
 .related h2 { font-size: clamp(1.7rem, 3.6vw, 2.3rem); margin-bottom: 24px; }
 
+/* ---------- Pluie de fleurs à l'ouverture (dessinée par main.js) ---------- */
+.flower-shower {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 60;
+}
+
 /* ---------- Pied de page ---------- */
 .site-footer { background: var(--maroon-deep); color: #e6d5bd; padding: 0 0 24px; }
 .site-footer .kolam-divider { margin-bottom: 36px; }

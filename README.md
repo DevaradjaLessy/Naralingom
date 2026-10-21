@@ -54,6 +54,9 @@ Dans `assets/js/main.js`, l'objet `TEMPLE` en haut du fichier permet de régler 
 - `email` : l'adresse qui reçoit les demandes d'adhésion ;
 - `agenda` : les prochaines dates au temple, affichées automatiquement au-dessus
   du calendrier des fêtes (les dates passées disparaissent d'elles-mêmes).
+- `fleurs` : la pluie de fleurs (souci, jasmin, rose) à l'ouverture des pages ;
+  `false` pour la désactiver. Elle ne s'affiche pas si le visiteur a demandé
+  à réduire les animations.
 
 Pour ajouter une photo dans la galerie, la déposer dans `assets/img/` et
 remplacer `<div class="ph-img"></div>` par

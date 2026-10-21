@@ -12,6 +12,9 @@ const TEMPLE = {
   agenda: [
     // { date: "2027-01-23", titre: "Thaipoosam Cavadee", detail: "Départ de la procession à 6 h" },
   ],
+
+  // Pluie de fleurs à l'ouverture des pages (false pour la désactiver).
+  fleurs: true,
 };
 
 /* ---------- Menu mobile ---------- */
@@ -194,6 +197,162 @@ document.querySelectorAll("[data-copy-link]").forEach((btn) => {
       .catch(() => done("Copie impossible, utilisez la barre d'adresse"));
   });
 });
+
+/* ---------- Pluie de fleurs à l'ouverture : பூ மழை (poo mazhai) ----------
+   Comme on lance des fleurs pour accueillir une divinité ou un invité :
+   pétales de souci (la fleur des guirlandes), jasmin et pétales de rose
+   tombent quelques secondes puis s'effacent, sans bloquer la page. */
+(function flowerShower() {
+  if (!TEMPLE.fleurs) return;
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext && canvas.getContext("2d");
+  if (!ctx) return;
+  canvas.className = "flower-shower";
+  canvas.setAttribute("aria-hidden", "true");
+  document.body.append(canvas);
+
+  const DURATION = 4500; // ms, fondu compris
+  const FADE_IN = 300;
+  const FADE_OUT = 1200;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let W = 0;
+  let H = 0;
+
+  function resize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  const rand = (min, max) => min + Math.random() * (max - min);
+  const pick = (list) => list[Math.floor(Math.random() * list.length)];
+  const KINDS = ["souci", "souci", "souci", "souci", "souci", "jasmin", "jasmin", "jasmin", "rose", "rose", "guirlande"];
+  const COLORS = {
+    souci: ["#f59e0b", "#e8871e", "#f6c453", "#f2a516"],
+    rose: ["#b3202a", "#c8324a", "#9c1b2b"],
+  };
+
+  const count = Math.round(Math.min(110, Math.max(40, W / 11)));
+  const petals = Array.from({ length: count }, () => {
+    const kind = pick(KINDS);
+    return {
+      kind,
+      color: COLORS[kind] ? pick(COLORS[kind]) : null,
+      size: { jasmin: rand(7, 10), guirlande: rand(9, 13) }[kind] || rand(8, 13),
+      x: rand(0, W),
+      y: rand(-0.6, 0.15) * H,
+      vy: rand(0.16, 0.3) * H, // px par seconde
+      vx: rand(-20, 20),
+      sway: rand(12, 40),
+      freq: rand(1.2, 2.6),
+      phase: rand(0, Math.PI * 2),
+      rot: rand(0, Math.PI * 2),
+      vr: rand(-2.2, 2.2),
+      flip: rand(0, Math.PI * 2),
+      vflip: rand(2, 5),
+    };
+  });
+
+  function drawPetal(p) {
+    const s = p.size;
+    ctx.beginPath();
+    ctx.moveTo(0, -s);
+    ctx.bezierCurveTo(s * 0.95, -s * 0.45, s * 0.6, s * 0.85, 0, s);
+    ctx.bezierCurveTo(-s * 0.6, s * 0.85, -s * 0.95, -s * 0.45, 0, -s);
+    ctx.fillStyle = p.color;
+    ctx.fill();
+    ctx.strokeStyle = "rgba(90, 20, 10, .25)";
+    ctx.lineWidth = 0.8;
+    ctx.beginPath();
+    ctx.moveTo(0, -s * 0.7);
+    ctx.lineTo(0, s * 0.7);
+    ctx.stroke();
+  }
+
+  function drawJasmine(p) {
+    const s = p.size;
+    ctx.fillStyle = "#fffdf6";
+    ctx.strokeStyle = "rgba(150, 110, 40, .5)";
+    ctx.lineWidth = 0.8;
+    for (let i = 0; i < 5; i += 1) {
+      ctx.save();
+      ctx.rotate((i * Math.PI * 2) / 5);
+      ctx.beginPath();
+      ctx.ellipse(0, -s * 0.62, s * 0.36, s * 0.62, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+    }
+    ctx.beginPath();
+    ctx.arc(0, 0, s * 0.22, 0, Math.PI * 2);
+    ctx.fillStyle = "#f6d36b";
+    ctx.fill();
+  }
+
+  // Fleur de souci entière, comme sur les guirlandes du temple
+  function drawMarigold(p) {
+    const s = p.size;
+    const rings = [
+      { n: 14, r: s * 0.78, w: s * 0.3, h: s * 0.42, color: "#e8871e" },
+      { n: 10, r: s * 0.48, w: s * 0.26, h: s * 0.34, color: "#f59e0b" },
+      { n: 7, r: s * 0.22, w: s * 0.2, h: s * 0.26, color: "#f6c453" },
+    ];
+    for (const ring of rings) {
+      ctx.fillStyle = ring.color;
+      for (let i = 0; i < ring.n; i += 1) {
+        const a = (i * Math.PI * 2) / ring.n;
+        ctx.beginPath();
+        ctx.ellipse(Math.cos(a) * ring.r, Math.sin(a) * ring.r, ring.w, ring.h, a + Math.PI / 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+  }
+
+  const start = performance.now();
+  let last = start;
+
+  function frame(now) {
+    const t = now - start;
+    const dt = Math.min(0.05, (now - last) / 1000);
+    last = now;
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalAlpha = Math.min(1, t / FADE_IN, (DURATION - t) / FADE_OUT);
+
+    for (const p of petals) {
+      p.y += p.vy * dt;
+      p.x += (p.vx + Math.sin(t / 1000 * p.freq + p.phase) * p.sway) * dt;
+      p.rot += p.vr * dt;
+      p.flip += p.vflip * dt;
+      if (p.y > H + 20) continue;
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      const squash = p.kind === "guirlande" ? 0.75 : 0.35;
+      ctx.scale(squash + (1 - squash) * Math.abs(Math.cos(p.flip)), 1);
+      if (p.kind === "jasmin") drawJasmine(p);
+      else if (p.kind === "guirlande") drawMarigold(p);
+      else drawPetal(p);
+      ctx.restore();
+    }
+
+    if (t < DURATION) {
+      requestAnimationFrame(frame);
+    } else {
+      window.removeEventListener("resize", resize);
+      canvas.remove();
+    }
+  }
+
+  requestAnimationFrame(frame);
+})();
 
 /* ---------- Année du pied de page ---------- */
 const year = document.getElementById("year");
